@@ -7,7 +7,7 @@ public partial class ObjectRotate // Properties and Methods that other classes c
 
 public partial class ObjectRotate // Properties and Methods that only this classes use
 {
-    private const float RotateSpeed = 10f;
+    private const float RotateSpeed = 100f;
 
     public void OnDrag(PointerEventData eventData) => _OnDrag(eventData);
 }

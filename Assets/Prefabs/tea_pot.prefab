@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3917459848187060366}
   - component: {fileID: 2855226992972402838}
   - component: {fileID: 1442415308331967767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Th_i_re001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 8848432166245520470}
   - component: {fileID: 8848432166245520471}
   - component: {fileID: 1975396927}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tea_pot
-  m_TagString: Untagged
+  m_TagString: SpinningObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

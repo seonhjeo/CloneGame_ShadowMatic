@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1263174191}
   - component: {fileID: 1263174192}
   - component: {fileID: 1263174193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Revoluter Globe
-  m_TagString: Untagged
+  m_TagString: SpinningObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,9 +84,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8702611308606329137}
     m_Modifications:
+    - target: {fileID: 225391824566431414, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4888956952064339301, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
       propertyPath: m_Name
       value: globe-earth
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888956952064339301, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888956952064339301, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
+      propertyPath: m_TagString
+      value: SpinningObjects
       objectReference: {fileID: 0}
     - target: {fileID: 5229454174550816735, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
       propertyPath: m_RootOrder
@@ -238,6 +250,18 @@ PrefabInstance:
     - target: {fileID: 1908734380221973210, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
       propertyPath: m_Name
       value: globe_base
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908734380221973210, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908734380221973210, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
+      propertyPath: m_TagString
+      value: SpinningObjects
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394808938306810855, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}

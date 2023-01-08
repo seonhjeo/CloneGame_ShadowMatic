@@ -10,19 +10,21 @@ namespace Rotate
 
     public partial class ObjectRotate // Properties and Methods that only this class use
     {
-        private const float RotateSpeed = 100f;
-
-        public void OnDrag(PointerEventData eventData) => _OnDrag(eventData);
+        private Rigidbody _myRigidBody;
     }
 
 // Class Body
     public partial class ObjectRotate : MonoBehaviour
     {
+        private void Awake()
+        {
+            _myRigidBody = gameObject.GetComponent<Rigidbody>();
+        }
     }
 
     public partial class ObjectRotate : IDragHandler
     {
-        private void _OnDrag(PointerEventData eventData)
+        public void OnDrag(PointerEventData eventData)
         {
             float x = 0, y, z = 0;
 
@@ -40,17 +42,13 @@ namespace Rotate
                     y = eventData.delta.y;
                 }
 
-                _RotateObj(x, y, z);
+                _myRigidBody.AddTorque(y, -x, -z);
             }
         }
 
         private void _RotateObj(float x, float y, float z)
         {
-            float offset = Time.deltaTime * RotateSpeed;
-
-            transform.Rotate(Vector3.up, -x * offset, Space.World);
-            transform.Rotate(Vector3.left, -y * offset, Space.World);
-            transform.Rotate(Vector3.forward, -z * offset, Space.World);
+            // OPT : Rotate opposite direction of Revoluter
         }
     }
 }

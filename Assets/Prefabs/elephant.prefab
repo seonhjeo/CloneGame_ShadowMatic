@@ -94,13 +94,14 @@ GameObject:
   - component: {fileID: 7405160296221323119}
   - component: {fileID: 1409515797223635995}
   - component: {fileID: 6026016512581320589}
+  - component: {fileID: 2111505822}
   m_Layer: 0
   m_Name: elephant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7405160296221323119
 Transform:
   m_ObjectHideFlags: 0
@@ -142,3 +143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f656433b230d42198ccd8015acb008b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2111505822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894733879899682261}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 5
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

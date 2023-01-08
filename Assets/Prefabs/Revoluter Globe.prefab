@@ -9,13 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8702611308606329137}
+  - component: {fileID: 1263174191}
+  - component: {fileID: 1263174192}
+  - component: {fileID: 1263174193}
   m_Layer: 0
   m_Name: Revoluter Globe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8702611308606329137
 Transform:
   m_ObjectHideFlags: 0
@@ -33,6 +36,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1263174191
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702611308606329138}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 5
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1263174192
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702611308606329138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1263174193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702611308606329138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828bdbd4fa0ff53438360a10a05928b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8702611306952818972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +151,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5229454174550816735, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
   m_PrefabInstance: {fileID: 8702611306952818972}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4259546055940516985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4888956952064339301, guid: b45166795e2254f57b899a9f754dd4d7, type: 3}
+  m_PrefabInstance: {fileID: 8702611306952818972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &5074061265898412801
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259546055940516985}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 5
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &8702611308562909956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -176,6 +241,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
+--- !u!1 &7113661209932745182 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1908734380221973210, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}
+  m_PrefabInstance: {fileID: 8702611308562909956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &3280736849712182063
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7113661209932745182}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 5
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &7634478240260952932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240459547332876384, guid: 64a016c24981e0b4591df082dad4cbe1, type: 3}

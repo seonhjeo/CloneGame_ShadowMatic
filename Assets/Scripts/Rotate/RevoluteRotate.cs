@@ -10,9 +10,10 @@ namespace Rotate
 
     public partial class RevoluteRotate // Properties and Methods that only this class use
     {
-        private const float RotateSpeed = 100f;
-
-        private ObjectRotate[] _childObjects;
+        private Rigidbody _myRigidBody;
+        
+        private ObjectRotate[] _childRotates;
+        private Rigidbody[] _childRigidBody;
 
         public void OnDrag(PointerEventData eventData) => _OnDrag(eventData);
     }
@@ -21,7 +22,9 @@ namespace Rotate
     {
         private void Awake()
         {
-            _childObjects = GetComponentsInChildren<ObjectRotate>();
+            _childRotates = GetComponentsInChildren<ObjectRotate>();
+            _childRigidBody = GetComponentsInChildren<Rigidbody>();
+            _myRigidBody = gameObject.GetComponent<Rigidbody>();
         }
     }
 
@@ -45,21 +48,20 @@ namespace Rotate
                     y = eventData.delta.y;
                 }
 
-                _RotateObj(x, y, z);
-                foreach (ObjectRotate child in _childObjects)
+                _myRigidBody.AddTorque(y, -x, -z);
+                foreach (ObjectRotate child in _childRotates)
                 {
-                    child.RotateObj(-x, -y, -z);
+                    child.RotateObj(y, -x, -z);
                 }
             }
         }
 
-        private void _RotateObj(float x, float y, float z)
+        private void _ActivateChildRigidBody(bool active)
         {
-            float offset = Time.deltaTime * RotateSpeed;
-
-            transform.Rotate(Vector3.up, -x * offset, Space.World);
-            transform.Rotate(Vector3.left, -y * offset, Space.World);
-            transform.Rotate(Vector3.forward, -z * offset, Space.World);
+            foreach (Rigidbody child in _childRigidBody)
+            {
+                child.isKinematic = active;
+            }
         }
     }
 }

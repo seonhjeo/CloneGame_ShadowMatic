@@ -1,3 +1,4 @@
+using UnityEngine;
 
 namespace Rotate
 {
@@ -9,16 +10,20 @@ namespace Rotate
     
     public interface IRotate
     {
-        public RotateTypes Type { get; }
+        RotateTypes Type { get; }
+        
+
+        /// <summary> Initiate object's start rotation and set answer rotation </summary>
+        void InitObj(Vector3 startRot, Vector3 answerRot);
         
         /// <summary> Rotate object by giving torque </summary>
-        public void RotateObj(float x, float y, float z);
+        void RotateObj(float x, float y, float z);
     
         /// <summary> Set object's Rigidbody and Collider to activate/deactivate rotation </summary>
-        public void ActivateObject(bool active);
+        void ActivateObject(bool active);
 
         /// <summary> Return progress about object rotation </summary>
-        public float ReturnProgress();
+        float ReturnProgress();
     }
 }
 

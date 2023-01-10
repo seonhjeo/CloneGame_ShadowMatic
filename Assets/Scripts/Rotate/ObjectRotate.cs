@@ -7,6 +7,8 @@ namespace Rotate
     {
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Object;
+
+        public void InitObj(Vector3 startRot, Vector3 answerRot) => _InitObj(startRot, answerRot);
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
@@ -16,6 +18,8 @@ namespace Rotate
     {
         private Rigidbody _myRigidBody;
         private BoxCollider _myCollider;
+
+        private Quaternion _answerRot;
     }
 
 // Class Body
@@ -28,7 +32,7 @@ namespace Rotate
         }
     }
 
-    public partial class ObjectRotate : IDragHandler, IRotate
+    public partial class ObjectRotate : IDragHandler
     {
         public void OnDrag(PointerEventData eventData)
         {
@@ -49,14 +53,22 @@ namespace Rotate
             _RotateObj(x, y, z);
         }
 
+        
+    }
+
+    public partial class ObjectRotate : IRotate
+    {
+        private void _InitObj(Vector3 startRot, Vector3 answerRot)
+        {
+            _answerRot = Quaternion.Euler(answerRot);
+            transform.rotation = Quaternion.Euler(startRot);
+        }
+        
         private void _RotateObj(float x, float y, float z)
         {
             _myRigidBody.AddTorque(y, -x, -z);
         }
-    }
-
-    public partial class ObjectRotate
-    {
+        
         private void _ActivateObject(bool active)
         {
             _myRigidBody.isKinematic = !active;
@@ -65,7 +77,10 @@ namespace Rotate
 
         private float _ReturnProgress()
         {
-            return 0f;
+            float angle = Quaternion.Angle(transform.rotation, _answerRot);
+            // TODO : Lerp angle from 0 to 1
+            
+            return angle;
         }
     }
 }

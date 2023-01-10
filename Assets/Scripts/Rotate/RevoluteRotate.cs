@@ -8,6 +8,7 @@ namespace Rotate
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Revoluter;
         
+        public void InitObj(Vector3 startRot, Vector3 answerRot) => _InitObj(startRot, answerRot);
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
@@ -20,6 +21,8 @@ namespace Rotate
 
         private ObjectRotate[] _childRotates;
         private short _activeChild;
+        
+        private Quaternion _answerRot;
     }
 
     public partial class RevoluteRotate : MonoBehaviour
@@ -72,6 +75,13 @@ namespace Rotate
             _ActivateObject(false);
         }
         
+        // TODO : initiate child objects, implement after JSON I/O implemented
+        private void _InitObj(Vector3 startRot, Vector3 answerRot)
+        {
+            _answerRot = Quaternion.Euler(answerRot);
+            transform.rotation = Quaternion.Euler(startRot);
+        }
+        
         private void _ActivateObject(bool active)
         {
             _myRigidBody.isKinematic = !active;
@@ -101,20 +111,22 @@ namespace Rotate
 
             for (int i = 0; i < _childRotates.Length; i++)
             {
-                if (i == _activeChild)
-                {
-                    _childRotates[i].ActivateObject(true);
-                }
-                else
-                {
-                    _childRotates[i].ActivateObject(false);
-                }
+                bool temp = (i == _activeChild);
+                _childRotates[i].ActivateObject(temp);
             }
         }
         
         private float _ReturnProgress()
         {
-            return 0f;
+            float angle = Quaternion.Angle(transform.rotation, _answerRot);
+            // TODO : Lerp angle from 0 to 1
+            
+            foreach (ObjectRotate child in _childRotates)
+            {
+                angle += child.ReturnProgress();
+            }
+
+            return angle;
         }
     }
 }

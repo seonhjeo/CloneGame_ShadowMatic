@@ -28,9 +28,15 @@ namespace GameManager
             _curRot = _curObj.GetComponent<IRotate>();
         }
 
+        private void Start()
+        {
+            _curRot.InitObj(new Vector3(0, 0, 0), TempGameData.TeapotAns);
+        }
+        
         private void Update()
         {
             _SetRevolute();
+            //_curRot.ReturnProgress();
         }
     }
 

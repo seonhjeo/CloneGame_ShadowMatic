@@ -9,7 +9,7 @@ namespace Rotate
         public RotateTypes Type { get; } = RotateTypes.Revoluter;
         
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
-        public void ActivateRigidBody(bool active) => _ActivateRigidBody(active);
+        public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
     }
 
@@ -19,6 +19,7 @@ namespace Rotate
         private BoxCollider _myCollider;
 
         private ObjectRotate[] _childRotates;
+        private short _activeChild;
     }
 
     public partial class RevoluteRotate : MonoBehaviour
@@ -28,6 +29,11 @@ namespace Rotate
             _childRotates = GetComponentsInChildren<ObjectRotate>();
             _myRigidBody = gameObject.GetComponent<Rigidbody>();
             _myCollider = gameObject.GetComponent<BoxCollider>();
+        }
+
+        private void Start()
+        {
+            _Init();
         }
     }
 
@@ -60,21 +66,49 @@ namespace Rotate
     
     public partial class RevoluteRotate
     {
-        private void _ActivateRigidBody(bool active)
+        private void _Init()
+        {
+            _activeChild = -1;
+            _ActivateObject(false);
+        }
+        
+        private void _ActivateObject(bool active)
         {
             _myRigidBody.isKinematic = !active;
             _myCollider.enabled = active;
-            foreach (ObjectRotate child in _childRotates)
+
+            if (active == false)
             {
-                child.ActivateRigidBody(!active);
+                _ChangeActiveChild();
             }
+            else
+            {
+                foreach (ObjectRotate child in _childRotates)
+                {
+                    child.ActivateObject(false);
+                }
+            }
+            
         }
 
         private void _ChangeActiveChild()
         {
-            foreach (ObjectRotate child in _childRotates)
+            _activeChild += 1;
+            if (_activeChild >= _childRotates.Length)
             {
-                // ...
+                _activeChild = 0;
+            }
+
+            for (int i = 0; i < _childRotates.Length; i++)
+            {
+                if (i == _activeChild)
+                {
+                    _childRotates[i].ActivateObject(true);
+                }
+                else
+                {
+                    _childRotates[i].ActivateObject(false);
+                }
             }
         }
         

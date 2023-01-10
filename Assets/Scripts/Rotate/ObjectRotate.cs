@@ -8,7 +8,7 @@ namespace Rotate
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Object;
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
-        public void ActivateRigidBody(bool active) => _ActivateRigidBody(active);
+        public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
     }
 
@@ -35,7 +35,7 @@ namespace Rotate
             float x = 0, y, z = 0;
 
             // TODO : Associate with GameManager to control KeyInput
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetButton("RotYaw"))
             {
                 y = eventData.delta.y;
                 z = eventData.delta.x;
@@ -57,12 +57,12 @@ namespace Rotate
 
     public partial class ObjectRotate
     {
-        private void _ActivateRigidBody(bool active)
+        private void _ActivateObject(bool active)
         {
             _myRigidBody.isKinematic = !active;
             _myCollider.enabled = active;
         }
-        
+
         private float _ReturnProgress()
         {
             return 0f;

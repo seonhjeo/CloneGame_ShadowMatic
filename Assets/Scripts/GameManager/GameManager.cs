@@ -15,13 +15,16 @@ namespace GameManager
 
         private GameObject _curObj;
         private IRotate _curRot;
+
+        // TODO : store in Json and pop into scriptableObj
+        private readonly Vector3 _initVec = new Vector3(0f, 0f, -7f);
     }
 
     public partial class GameManager : MonoBehaviour
     {
         private void Awake()
         {
-            _curObj = GameObject.Instantiate(rotObjs[0], new Vector3(0f, 0f, -7f), Quaternion.identity);
+            _curObj = Instantiate(rotObjs[2], _initVec, Quaternion.identity);
             _curRot = _curObj.GetComponent<IRotate>();
         }
 
@@ -39,13 +42,13 @@ namespace GameManager
         {
             if (_curRot.Type == RotateTypes.Revoluter)
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (Input.GetButtonDown("Revolute"))
                 {
-                    _curRot.ActivateRigidBody(true);
+                    _curRot.ActivateObject(true);
                 }
-                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                else if (Input.GetButtonUp("Revolute"))
                 {
-                    _curRot.ActivateRigidBody(false);
+                    _curRot.ActivateObject(false);
                 }
             }
         }

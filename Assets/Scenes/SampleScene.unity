@@ -351,11 +351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a68f8f150a2fd4ebe897868c23948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: ff5024abf8131b546a5b8a22c6511cf2, type: 2}
   rotObjs:
   - {fileID: 8505782357254297722, guid: d9b4e7380ce044406b8e6d097335ea7f, type: 3}
   - {fileID: 7894733879899682261, guid: d19100625e67c4e0cb7634f82769dcb4, type: 3}
   - {fileID: 4020571102471537478, guid: c6f959cedb8f8b247b3bc52b9341955f, type: 3}
-  - {fileID: 8702611308606329138, guid: 102bc3ef9b69318418cac82ef4f6e458, type: 3}
 --- !u!4 &824764928
 Transform:
   m_ObjectHideFlags: 0

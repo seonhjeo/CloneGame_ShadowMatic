@@ -13,8 +13,8 @@ namespace Rotate
         RotateTypes Type { get; }
         
 
-        /// <summary> Initiate object's start rotation and set answer rotation </summary>
-        void InitObj(Vector3 startRot, Vector3 answerRot);
+        /// <summary> Initiate object </summary>
+        void InitObj();
         
         /// <summary> Rotate object by giving torque </summary>
         void RotateObj(float x, float y, float z);

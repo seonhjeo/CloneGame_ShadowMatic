@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using ScriptableObj;
+
 namespace Rotate
 {
     public partial class RevoluteRotate // Properties and Methods that other classes can use
@@ -8,7 +10,7 @@ namespace Rotate
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Revoluter;
         
-        public void InitObj(Vector3 startRot, Vector3 answerRot) => _InitObj(startRot, answerRot);
+        public void InitObj() => _InitObj();
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
@@ -21,8 +23,10 @@ namespace Rotate
 
         private ObjectRotate[] _childRotates;
         private short _activeChild;
-        
-        private Quaternion _answerRot;
+
+        [SerializeField]
+        private ObjectSo objectData;
+        //private Quaternion _answerRot;
     }
 
     public partial class RevoluteRotate : MonoBehaviour
@@ -45,8 +49,7 @@ namespace Rotate
         public void OnDrag(PointerEventData eventData)
         {
             float x = 0, y, z = 0;
-
-            // TODO : Associate with GameManager to control KeyInput
+            
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 y = eventData.delta.y;
@@ -75,11 +78,13 @@ namespace Rotate
             _ActivateObject(false);
         }
         
-        // TODO : initiate child objects, implement after JSON I/O implemented
-        private void _InitObj(Vector3 startRot, Vector3 answerRot)
+        private void _InitObj()
         {
-            _answerRot = Quaternion.Euler(answerRot);
-            transform.rotation = Quaternion.Euler(startRot);
+            transform.rotation = objectData.initRot;
+            foreach (ObjectRotate child in _childRotates)
+            {
+                child.InitObj();
+            }
         }
         
         private void _ActivateObject(bool active)
@@ -118,15 +123,17 @@ namespace Rotate
         
         private float _ReturnProgress()
         {
-            float angle = Quaternion.Angle(transform.rotation, _answerRot);
-            // TODO : Lerp angle from 0 to 1
+            float angle = Quaternion.Angle(transform.rotation, objectData.answerRot);
+            
+            float res = Mathf.InverseLerp(objectData.lerpStart, objectData.lerpEnd, angle);
+            res = Mathf.Pow(res, 3);
             
             foreach (ObjectRotate child in _childRotates)
             {
-                angle += child.ReturnProgress();
+                res += child.ReturnProgress();
             }
 
-            return angle;
+            return res / (_childRotates.Length + 1);
         }
     }
 }

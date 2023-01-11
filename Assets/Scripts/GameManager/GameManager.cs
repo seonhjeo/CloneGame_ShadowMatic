@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using Rotate;
 using UnityEngine;
+
+using Rotate;
+using ScriptableObj;
 
 namespace GameManager
 {
@@ -11,32 +13,34 @@ namespace GameManager
     public partial class GameManager // Properties and Methods that only this class use
     {
         [SerializeField]
+        private GameManagerSo gameData;
+        
+        [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
 
         private GameObject _curObj;
         private IRotate _curRot;
 
-        // TODO : store in Json and pop into scriptableObj
-        private readonly Vector3 _initVec = new Vector3(0f, 0f, -7f);
+        //private readonly Vector3 _initVec = new Vector3(0f, 0f, -7f);
     }
 
     public partial class GameManager : MonoBehaviour
     {
         private void Awake()
         {
-            _curObj = Instantiate(rotObjs[2], _initVec, Quaternion.identity);
+            _curObj = Instantiate(rotObjs[0], gameData.objectPos, Quaternion.identity);
             _curRot = _curObj.GetComponent<IRotate>();
         }
 
         private void Start()
         {
-            _curRot.InitObj(new Vector3(0, 0, 0), TempGameData.TeapotAns);
+            _curRot.InitObj();
         }
         
         private void Update()
         {
             _SetRevolute();
-            //_curRot.ReturnProgress();
+            _CheckClear();
         }
     }
 
@@ -56,6 +60,16 @@ namespace GameManager
                 {
                     _curRot.ActivateObject(false);
                 }
+            }
+        }
+
+        private void _CheckClear()
+        {
+            float res = _curRot.ReturnProgress();
+            // TODO : Indicate res
+            if (res >= gameData.Offset)
+            {
+                // TODO : Deactivate object and Show result
             }
         }
     }

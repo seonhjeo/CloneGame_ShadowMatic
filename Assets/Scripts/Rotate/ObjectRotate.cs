@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using ScriptableObj;
+
 namespace Rotate
 {
     public partial class ObjectRotate // Properties and Methods that other classes can use
     {
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Object;
+
+        public void InitObj() => _InitObj();
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
@@ -16,6 +20,9 @@ namespace Rotate
     {
         private Rigidbody _myRigidBody;
         private BoxCollider _myCollider;
+
+        [SerializeField]
+        private ObjectSo objectData;
     }
 
 // Class Body
@@ -28,13 +35,12 @@ namespace Rotate
         }
     }
 
-    public partial class ObjectRotate : IDragHandler, IRotate
+    public partial class ObjectRotate : IDragHandler
     {
         public void OnDrag(PointerEventData eventData)
         {
             float x = 0, y, z = 0;
-
-            // TODO : Associate with GameManager to control KeyInput
+            
             if (Input.GetButton("RotYaw"))
             {
                 y = eventData.delta.y;
@@ -48,15 +54,20 @@ namespace Rotate
 
             _RotateObj(x, y, z);
         }
+    }
 
+    public partial class ObjectRotate : IRotate
+    {
+        private void _InitObj()
+        {
+            transform.rotation = objectData.initRot;
+        }
+        
         private void _RotateObj(float x, float y, float z)
         {
             _myRigidBody.AddTorque(y, -x, -z);
         }
-    }
-
-    public partial class ObjectRotate
-    {
+        
         private void _ActivateObject(bool active)
         {
             _myRigidBody.isKinematic = !active;
@@ -65,7 +76,12 @@ namespace Rotate
 
         private float _ReturnProgress()
         {
-            return 0f;
+            float angle = Quaternion.Angle(transform.rotation, objectData.answerRot);
+            
+            float res = Mathf.InverseLerp(objectData.lerpStart, objectData.lerpEnd, angle);
+            res = Mathf.Pow(res, 3);
+
+            return res;
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7224839370129772161}
   - component: {fileID: 5931673662105692982}
   - component: {fileID: 3750076576736929648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 8534562519822913966}
   - component: {fileID: 8212984733850802196}
   - component: {fileID: 8212984733850802197}
-  m_Layer: 0
+  - component: {fileID: 4538906736773306777}
+  m_Layer: 8
   m_Name: logo-2
-  m_TagString: Untagged
+  m_TagString: SpinningObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +126,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9023819233361398548}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 15, y: 15, z: 15}
@@ -142,3 +143,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f656433b230d42198ccd8015acb008b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectData: {fileID: 11400000, guid: 62c39eca3fa1e8e479124068c77c3d61, type: 2}
+--- !u!54 &4538906736773306777
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023819233361398548}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 5
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

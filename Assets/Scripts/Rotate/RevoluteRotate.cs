@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using ScriptableObj;
+
 namespace Rotate
 {
     public partial class RevoluteRotate // Properties and Methods that other classes can use
@@ -8,6 +10,7 @@ namespace Rotate
         // IRotate properties
         public RotateTypes Type { get; } = RotateTypes.Revoluter;
         
+        public void InitObj() => _InitObj();
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
@@ -20,6 +23,10 @@ namespace Rotate
 
         private ObjectRotate[] _childRotates;
         private short _activeChild;
+
+        [SerializeField]
+        private ObjectSo objectData;
+        //private Quaternion _answerRot;
     }
 
     public partial class RevoluteRotate : MonoBehaviour
@@ -42,8 +49,7 @@ namespace Rotate
         public void OnDrag(PointerEventData eventData)
         {
             float x = 0, y, z = 0;
-
-            // TODO : Associate with GameManager to control KeyInput
+            
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 y = eventData.delta.y;
@@ -70,6 +76,15 @@ namespace Rotate
         {
             _activeChild = -1;
             _ActivateObject(false);
+        }
+        
+        private void _InitObj()
+        {
+            transform.rotation = objectData.initRot;
+            foreach (ObjectRotate child in _childRotates)
+            {
+                child.InitObj();
+            }
         }
         
         private void _ActivateObject(bool active)
@@ -101,20 +116,24 @@ namespace Rotate
 
             for (int i = 0; i < _childRotates.Length; i++)
             {
-                if (i == _activeChild)
-                {
-                    _childRotates[i].ActivateObject(true);
-                }
-                else
-                {
-                    _childRotates[i].ActivateObject(false);
-                }
+                bool temp = (i == _activeChild);
+                _childRotates[i].ActivateObject(temp);
             }
         }
         
         private float _ReturnProgress()
         {
-            return 0f;
+            float angle = Quaternion.Angle(transform.rotation, objectData.answerRot);
+            
+            float res = Mathf.InverseLerp(objectData.lerpStart, objectData.lerpEnd, angle);
+            res = Mathf.Pow(res, 3);
+            
+            foreach (ObjectRotate child in _childRotates)
+            {
+                res += child.ReturnProgress();
+            }
+
+            return res / (_childRotates.Length + 1);
         }
     }
 }

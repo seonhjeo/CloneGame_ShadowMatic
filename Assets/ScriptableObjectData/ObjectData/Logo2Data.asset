@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Logo 2
   lerpStart: 30
-  lerpEnd: 5
+  lerpEnd: 10
   initRot: {x: 0, y: 0, z: 0, w: 0}
   answerRot: {x: 0, y: 0.9981348, z: 0, w: -0.061048474}

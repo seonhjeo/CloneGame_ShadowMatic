@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 736223790}
   - component: {fileID: 736223789}
   - component: {fileID: 736223788}
+  - component: {fileID: 736223791}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -322,6 +323,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736223791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736223787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6607e12911e77d24ca870aa0f4a375d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 736223789}
 --- !u!1 &824764926
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +370,21 @@ MonoBehaviour:
   - {fileID: 8505782357254297722, guid: d9b4e7380ce044406b8e6d097335ea7f, type: 3}
   - {fileID: 7894733879899682261, guid: d19100625e67c4e0cb7634f82769dcb4, type: 3}
   - {fileID: 4020571102471537478, guid: c6f959cedb8f8b247b3bc52b9341955f, type: 3}
+  onPlayerClear:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 736223791}
+        m_TargetAssemblyTypeName: UIManager.EventSystemManager, Assembly-CSharp
+        m_MethodName: SetStatus
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &824764928
 Transform:
   m_ObjectHideFlags: 0

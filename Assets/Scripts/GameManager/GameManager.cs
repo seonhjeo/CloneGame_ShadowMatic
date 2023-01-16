@@ -1,8 +1,13 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.Events;
 
 using Rotate;
 using ScriptableObj;
+
 
 namespace GameManager
 {
@@ -18,29 +23,38 @@ namespace GameManager
         [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
 
+        [SerializeField]
+        private UnityEvent onPlayerClear;
+
         private GameObject _curObj;
         private IRotate _curRot;
 
-        //private readonly Vector3 _initVec = new Vector3(0f, 0f, -7f);
+        private bool _getClear;
+        private DateTime _time;
     }
 
     public partial class GameManager : MonoBehaviour
     {
         private void Awake()
         {
-            _curObj = Instantiate(rotObjs[0], gameData.objectPos, Quaternion.identity);
+            _curObj = Instantiate(rotObjs[2], gameData.objectPos, Quaternion.identity);
             _curRot = _curObj.GetComponent<IRotate>();
+            _getClear = false;
         }
 
         private void Start()
         {
             _curRot.InitObj();
+            _time = DateTime.Now;
         }
         
         private void Update()
         {
-            _SetRevolute();
-            _CheckClear();
+            if (!_getClear)
+            {
+                _SetRevolute();
+                _CheckClear();
+            }
         }
     }
 
@@ -66,10 +80,17 @@ namespace GameManager
         private void _CheckClear()
         {
             float res = _curRot.ReturnProgress();
+            
             // TODO : Indicate res
             if (res >= gameData.Offset)
             {
-                // TODO : Deactivate object and Show result
+                _getClear = true;
+                TimeSpan timeSpan = DateTime.Now - _time;
+                // TODO : Indicate Time
+                Debug.Log(timeSpan);
+                
+                onPlayerClear.Invoke();
+                _curRot.RotateObjToAns(gameData.AnswerLerpTime);
             }
         }
     }

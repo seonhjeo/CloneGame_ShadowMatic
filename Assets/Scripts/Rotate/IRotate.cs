@@ -24,6 +24,9 @@ namespace Rotate
 
         /// <summary> Return progress about object rotation </summary>
         float ReturnProgress();
+
+        /// <summary> Rotate object to answer position in 'time' seconds </summary>
+        void RotateObjToAns(float time);
     }
 }
 

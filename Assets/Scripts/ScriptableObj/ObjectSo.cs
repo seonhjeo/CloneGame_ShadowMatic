@@ -7,7 +7,7 @@ namespace ScriptableObj
     {
         public string objectName;
         public float lerpStart = 30f;
-        public float lerpEnd = 5f;
+        public float lerpEnd = 10f;
         public Quaternion initRot;
         public Quaternion answerRot;
     }

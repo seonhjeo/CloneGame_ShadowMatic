@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Elephant
   lerpStart: 30
-  lerpEnd: 5
+  lerpEnd: 10
   initRot: {x: 0, y: 0, z: 0, w: 0}
   answerRot: {x: 0.021077901, y: 0.76232755, z: -0.6465046, w: -0.021078229}

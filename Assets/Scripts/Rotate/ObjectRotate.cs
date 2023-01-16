@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,7 @@ namespace Rotate
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
+        public void RotateObjToAns(float time) => _RotateObjToAns(time);
     }
 
     public partial class ObjectRotate // Properties and Methods that only this class use
@@ -82,6 +84,25 @@ namespace Rotate
             res = Mathf.Pow(res, 3);
 
             return res;
+        }
+        
+        private void _RotateObjToAns(float time)
+        {
+            StartCoroutine(RotObjAns(time));
+        }
+
+        IEnumerator RotObjAns(float time)
+        {
+            float elapsedTime = 0;
+            Quaternion cur = transform.rotation;
+
+            while (elapsedTime < time)
+            {
+                transform.rotation = Quaternion.Slerp(cur, objectData.answerRot, elapsedTime / time);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            transform.rotation = objectData.answerRot;
         }
     }
 }

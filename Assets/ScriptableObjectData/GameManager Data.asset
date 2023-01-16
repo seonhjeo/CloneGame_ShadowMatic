@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: GameManager Data
   m_EditorClassIdentifier: 
   objectPos: {x: 0, y: 0, z: -7}
+  Offset: 0.999
+  AnswerLerpTime: 3

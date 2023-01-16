@@ -7,6 +7,7 @@ namespace ScriptableObj
     {
         public Vector3 objectPos = new Vector3(0, 0, -7f);
         public float Offset = 0.999f;
+        public float AnswerLerpTime = 3f;
     }
 }
 

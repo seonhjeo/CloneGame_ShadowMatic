@@ -1,3 +1,5 @@
+using System.Collections;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +16,7 @@ namespace Rotate
         public void RotateObj(float x, float y, float z) => _RotateObj(x, y, z);
         public void ActivateObject(bool active) => _ActivateObject(active);
         public float ReturnProgress() => _ReturnProgress();
+        public void RotateObjToAns(float time) => _RotateObjToAns(time);
     }
 
     public partial class RevoluteRotate // Properties and Methods that only this class use
@@ -124,9 +127,9 @@ namespace Rotate
         private float _ReturnProgress()
         {
             float angle = Quaternion.Angle(transform.rotation, objectData.answerRot);
-            
             float res = Mathf.InverseLerp(objectData.lerpStart, objectData.lerpEnd, angle);
             res = Mathf.Pow(res, 3);
+            
             
             foreach (ObjectRotate child in _childRotates)
             {
@@ -134,6 +137,30 @@ namespace Rotate
             }
 
             return res / (_childRotates.Length + 1);
+        }
+
+        private void _RotateObjToAns(float time)
+        {
+            StartCoroutine(RotObjAns(time));
+            
+            foreach (ObjectRotate child in _childRotates)
+            {
+                child.RotateObjToAns(time);
+            }
+        }
+
+        IEnumerator RotObjAns(float time)
+        {
+            float elapsedTime = 0;
+            Quaternion cur = transform.rotation;
+
+            while (elapsedTime < time)
+            {
+                transform.rotation = Quaternion.Slerp(cur, objectData.answerRot, elapsedTime / time);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            transform.rotation = objectData.answerRot;
         }
     }
 }

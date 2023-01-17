@@ -23,8 +23,9 @@ namespace GameManager
         [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
 
-        [SerializeField]
-        private UnityEvent onPlayerClear;
+        [SerializeField] private UnityEvent onPlayerClear;
+        [SerializeField] private UnityEvent<float> setPlayTime;
+        [SerializeField] private UnityEvent<float> setProgress;
 
         private GameObject _curObj;
         private IRotate _curRot;
@@ -80,16 +81,18 @@ namespace GameManager
         private void _CheckClear()
         {
             float res = _curRot.ReturnProgress();
-            
+            setProgress.Invoke(res);
             // TODO : Indicate res
             if (res >= gameData.Offset)
             {
                 _getClear = true;
                 TimeSpan timeSpan = DateTime.Now - _time;
-                // TODO : Indicate Time
-                Debug.Log(timeSpan);
-                
+                double t = timeSpan.TotalSeconds;
+                float t2 = Convert.ToSingle(Math.Round(t, 2));
+
                 onPlayerClear.Invoke();
+                setPlayTime.Invoke(t2);
+                setProgress.Invoke(1f);
                 _curRot.RotateObjToAns(gameData.AnswerLerpTime);
             }
         }

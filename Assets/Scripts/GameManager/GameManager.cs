@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 using Rotate;
 using ScriptableObj;
+using UnityEngine.Profiling;
 
 
 namespace GameManager
@@ -51,11 +52,13 @@ namespace GameManager
         
         private void Update()
         {
+            Profiler.BeginSample("MyCodePiece"); 
             if (!_getClear)
             {
                 _SetRevolute();
                 _CheckClear();
             }
+            Profiler.EndSample();
         }
     }
 
@@ -82,7 +85,6 @@ namespace GameManager
         {
             float res = _curRot.ReturnProgress();
             setProgress.Invoke(res);
-            // TODO : Indicate res
             if (res >= gameData.Offset)
             {
                 _getClear = true;

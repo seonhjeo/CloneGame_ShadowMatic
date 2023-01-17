@@ -39,18 +39,15 @@ namespace UIManager
         {
             Status = status;
             text.gameObject.SetActive(status);
-            Debug.Log(status);
         }
 
         private void _SetProgressValue(float progress)
         {
-            //Debug.Log(progress);
             slider.value = progress;
         }
         
         private void _SetTimeValue(float time)
         {
-            //Debug.Log(time);
             text.text = time.ToString(CultureInfo.CurrentCulture);
         }
     }

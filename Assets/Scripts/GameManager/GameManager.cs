@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -46,6 +45,12 @@ namespace GameManager
 
         private void Start()
         {
+            #if UNITY_IOS || UNITY_ANDROID
+                Application.targetFrameRate = 60;
+            #else
+                QualitySettings.vSyncCount = 1;
+            #endif
+            
             _curRot.InitObj();
             _time = DateTime.Now;
         }

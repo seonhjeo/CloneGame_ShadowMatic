@@ -22,8 +22,7 @@ namespace GameManager
         
         [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
-
-        [SerializeField] private UnityEvent onPlayerClear;
+        
         [SerializeField] private UnityEvent<float> setPlayTime;
         [SerializeField] private UnityEvent<float> setProgress;
 
@@ -96,8 +95,7 @@ namespace GameManager
                 TimeSpan timeSpan = DateTime.Now - _time;
                 double t = timeSpan.TotalSeconds;
                 float t2 = Convert.ToSingle(Math.Round(t, 2));
-
-                onPlayerClear.Invoke();
+                
                 setPlayTime.Invoke(t2);
                 setProgress.Invoke(1f);
                 _curRot.RotateObjToAns(gameData.AnswerLerpTime);

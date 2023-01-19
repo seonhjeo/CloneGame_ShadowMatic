@@ -38,7 +38,7 @@ namespace UIManager
         private void _SetStatus(bool status)
         {
             Status = status;
-            text.gameObject.SetActive(status);
+            gameObject.SetActive(status);
         }
 
         private void _SetProgressValue(float progress)
@@ -48,6 +48,7 @@ namespace UIManager
         
         private void _SetTimeValue(float time)
         {
+            text.gameObject.SetActive(true);
             text.text = time.ToString(CultureInfo.CurrentCulture);
         }
     }

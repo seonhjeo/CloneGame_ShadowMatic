@@ -1,4 +1,5 @@
 
+using ScriptableObj;
 using UnityEngine;
 
 
@@ -7,7 +8,7 @@ namespace UIManager
     public partial class StartManager // Properties and Methods that other classes can use
     {
         public bool Status { get; private set; } = true;
-        
+
         public void SetStatus(bool status) => _SetStatus(status);
 
         public void QuitGame() => _QuitGame();

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 using Rotate;
 using ScriptableObj;
+using UIManager;
 using UnityEngine.Profiling;
 
 
@@ -56,13 +57,11 @@ namespace GameManager
         
         private void Update()
         {
-            Profiler.BeginSample("MyCodePiece"); 
             if (!_getClear)
             {
                 _SetRevolute();
                 _CheckClear();
             }
-            Profiler.EndSample();
         }
     }
 

@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48399cc605aeb65489e7c2678cfac0e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiData: {fileID: 0}
+  <UiData>k__BackingField: {fileID: 11400000, guid: c48a138b569e4e84593e7aea1a158041, type: 2}
   slider: {fileID: 1317422592}
   text: {fileID: 1063732695}
 --- !u!1 &736223787
@@ -631,6 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6607e12911e77d24ca870aa0f4a375d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <UiData>k__BackingField: {fileID: 11400000, guid: c48a138b569e4e84593e7aea1a158041, type: 2}
   eventSystem: {fileID: 736223789}
 --- !u!1 &762153189
 GameObject:

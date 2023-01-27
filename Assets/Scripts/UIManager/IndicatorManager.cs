@@ -1,23 +1,30 @@
 
 using System.Globalization;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 using TMPro;
+using UIManager.Base_Script;
+using ScriptableObj;
 
 namespace UIManager
 {
     public partial class IndicatorManager // Properties and Methods that other classes can use
     {
-        public override void SetStatus(bool status) => _SetStatus(status);
+        [field:SerializeField]
+        public FadeUiSo UiData { get; private set; }
+        public bool Status { get; private set; }
+        
+        public void SetStatus(bool status) => _SetStatus(status);
 
         public void SetTimeValue(float time) => _SetTimeValue(time);
 
         public void SetProgressValue(float progress) => _SetProgressValue(progress);
         
-        public override void FadeIn() => _FadeIn();
+        public void FadeIn() => _FadeIn();
         
-        public override void FadeOut() => _FadeOut();
+        public void FadeOut() => _FadeOut();
     }
     
     public partial class IndicatorManager // Properties and Methods that only this class use
@@ -26,7 +33,7 @@ namespace UIManager
         [SerializeField] private TMP_Text text;
     }
     
-    public partial class IndicatorManager : FadeUIManager
+    public partial class IndicatorManager : MonoBehaviour
     {
         private void Awake()
         {
@@ -34,7 +41,7 @@ namespace UIManager
         }
     }
     
-    public partial class IndicatorManager
+    public partial class IndicatorManager : IUIManager
     {
         private void _SetStatus(bool status)
         {

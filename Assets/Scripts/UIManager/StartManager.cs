@@ -1,7 +1,8 @@
 
-using ScriptableObj;
 using UnityEngine;
 
+using ScriptableObj;
+using UIManager.Base_Script;
 
 namespace UIManager
 {
@@ -32,7 +33,10 @@ namespace UIManager
             gameObject.SetActive(status);
         }
 
-        
+        private void _GoToMainMenu()
+        {
+            
+        }
         
         private void _QuitGame()
         {

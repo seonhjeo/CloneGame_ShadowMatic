@@ -1,12 +1,16 @@
 
-
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+using ScriptableObj;
+using UIManager.Base_Script;
 
 namespace UIManager
 {
     public partial class EventSystemManager // Properties and Methods that other classes can use
     {
+        [field:SerializeField]
+        public FadeUiSo UiData { get; private set; }
         public bool Status { get; private set; } = true;
 
         public void SetStatus(bool status) => _SetStatus(status);
@@ -20,7 +24,6 @@ namespace UIManager
     
     public partial class EventSystemManager : MonoBehaviour
     {
-        
     }
     
     public partial class EventSystemManager : IUIManager

@@ -14,9 +14,6 @@ namespace UIManager
     {
         [field:SerializeField]
         public FadeUiSo UiData { get; private set; }
-        public bool Status { get; private set; }
-        
-        public void SetStatus(bool status) => _SetStatus(status);
 
         public void SetTimeValue(float time) => _SetTimeValue(time);
 
@@ -43,12 +40,6 @@ namespace UIManager
     
     public partial class IndicatorManager : IUIManager
     {
-        private void _SetStatus(bool status)
-        {
-            Status = status;
-            gameObject.SetActive(status);
-        }
-
         private void _SetProgressValue(float progress)
         {
             slider.value = progress;

@@ -5,7 +5,7 @@ namespace UIManager.Base_Script
 {
     public interface IFade
     {
-        FadeUiSo UiData { get; }
+        FadeUiSo FadeUiData { get; }
         
         /// <summary> Fade In </summary>
         void FadeIn();

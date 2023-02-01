@@ -8,10 +8,6 @@ namespace UIManager
 {
     public partial class StartManager // Properties and Methods that other classes can use
     {
-        public bool Status { get; private set; } = true;
-
-        public void SetStatus(bool status) => _SetStatus(status);
-
         public void QuitGame() => _QuitGame();
     }
 
@@ -27,12 +23,6 @@ namespace UIManager
 
     public partial class StartManager : IUIManager
     {
-        private void _SetStatus(bool status)
-        {
-            Status = status;
-            gameObject.SetActive(status);
-        }
-
         private void _GoToMainMenu()
         {
             

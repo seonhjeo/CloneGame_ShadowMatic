@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -6,14 +6,24 @@ using UnityEngine.Events;
 
 using Rotate;
 using ScriptableObj;
-using UIManager;
-using UnityEngine.Profiling;
-
 
 namespace GameManager
 {
+    public enum GameState
+    {
+        Start = 1,
+        Play = 2,
+        OnUI = 3,
+        Clear = 4
+    }
+    
+    
     public partial class GameManager // Properties and Methods that other classes can use
     {
+        public GameState GameState { get; private set; } = GameState.Start;
+
+        public void ToUIState(float delay) => _SetGameState(GameState.OnUI, delay);
+        public void ToPlayState(float delay) => _SetGameState(GameState.Play, delay);
     }
 
     public partial class GameManager // Properties and Methods that only this class use
@@ -24,14 +34,14 @@ namespace GameManager
         [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
         
-        [SerializeField] private UnityEvent<float> setPlayTime;
+        [SerializeField] private UnityEvent<float, float> setResult;
         [SerializeField] private UnityEvent<float> setProgress;
 
         private GameObject _curObj;
         private IRotate _curRot;
 
         private bool _getClear;
-        private DateTime _time;
+        private float _clearTime;
     }
 
     public partial class GameManager : MonoBehaviour
@@ -40,7 +50,7 @@ namespace GameManager
         {
             _curObj = Instantiate(rotObjs[2], gameData.objectPos, Quaternion.identity);
             _curRot = _curObj.GetComponent<IRotate>();
-            _getClear = false;
+            _clearTime = 0f;
         }
 
         private void Start()
@@ -52,11 +62,16 @@ namespace GameManager
             #endif
             
             _curRot.InitObj();
-            _time = DateTime.Now;
+            GameState = GameState.Play;
         }
         
         private void Update()
         {
+            if (GameState == GameState.Play)
+            {
+                _clearTime += Time.deltaTime;
+            }
+            
             if (!_getClear)
             {
                 _SetRevolute();
@@ -90,15 +105,26 @@ namespace GameManager
             setProgress.Invoke(res);
             if (res >= gameData.Offset)
             {
-                _getClear = true;
-                TimeSpan timeSpan = DateTime.Now - _time;
-                double t = timeSpan.TotalSeconds;
-                float t2 = Convert.ToSingle(Math.Round(t, 2));
-                
-                setPlayTime.Invoke(t2);
+                GameState = GameState.Clear;
+                setResult.Invoke(_clearTime, gameData.AnswerLerpTime);
                 setProgress.Invoke(1f);
                 _curRot.RotateObjToAns(gameData.AnswerLerpTime);
             }
+        }
+
+        private void _SetGameState(GameState state, float delay = 0f)
+        {
+            StartCoroutine(_SetGameStateIE(state, delay));
+        }
+
+        private IEnumerator _SetGameStateIE(GameState state, float delay)
+        {
+            if (delay != 0f)
+            {
+                yield return new WaitForSeconds(delay);
+            }
+            
+            GameState = state;
         }
     }
 }

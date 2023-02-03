@@ -1,4 +1,6 @@
 
+using System;
+using System.Collections;
 using System.Globalization;
 
 using UnityEngine;
@@ -15,13 +17,9 @@ namespace UIManager
         [field:SerializeField]
         public FadeUiSo UiData { get; private set; }
 
-        public void SetTimeValue(float time) => _SetTimeValue(time);
+        public void SetResult(float rtime, float ltime) => _SetResult(rtime, ltime);
 
         public void SetProgressValue(float progress) => _SetProgressValue(progress);
-        
-        public void FadeIn() => _FadeIn();
-        
-        public void FadeOut() => _FadeOut();
     }
     
     public partial class IndicatorManager // Properties and Methods that only this class use
@@ -34,7 +32,7 @@ namespace UIManager
     {
         private void Awake()
         {
-            text.gameObject.SetActive(false);
+            text.alpha = 0f;
         }
     }
     
@@ -45,20 +43,22 @@ namespace UIManager
             slider.value = progress;
         }
         
-        private void _SetTimeValue(float time)
+        private void _SetResult(float rtime, float ltime)
         {
-            text.gameObject.SetActive(true);
-            text.text = time.ToString(CultureInfo.CurrentCulture);
+            text.text = Math.Round(rtime, 2).ToString(CultureInfo.CurrentCulture);
+            StartCoroutine(_CorFadeTextIn(ltime));
         }
 
-        private void _FadeIn()
+        private IEnumerator _CorFadeTextIn(float time)
         {
-            
-        }
-        
-        private void _FadeOut()
-        {
-            
+            float tempTime = 0f;
+
+            while (tempTime < time)
+            {
+                text.alpha = Mathf.Lerp(0f, 1f, tempTime / time);
+                tempTime += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }

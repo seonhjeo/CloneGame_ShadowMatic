@@ -16,7 +16,11 @@ namespace UIManager
         
         public void FadeOut() => _FadeCanvas(FadeUiData.canvasDelay, false);
 
+        public void QuitGame() => _QuitGame();
+        
         public void StartToMain() => _StartToMain();
+
+        public void MainToStart() => _MainToStart();
     }
     
     public partial class CanvasManager // Properties and Methods that only this class use
@@ -37,10 +41,24 @@ namespace UIManager
     public partial class CanvasManager : IUIManager, IFade
     {
 
+        private void _QuitGame()
+        {
+            // TODO : change at build
+            UnityEditor.EditorApplication.isPlaying = false;
+            // Application.Quit();
+        }
+        
         private void _StartToMain()
         {
             StartCoroutine(DoFade(FadeUiData.canvasDelay, false));
             StartCoroutine(_SwitchPanel(startPanel, mainPanel));
+            StartCoroutine(DoFade(FadeUiData.canvasDelay, true, FadeUiData.canvasDelay * 2));
+        }
+
+        private void _MainToStart()
+        {
+            StartCoroutine(DoFade(FadeUiData.canvasDelay, false));
+            StartCoroutine(_SwitchPanel(mainPanel, startPanel));
             StartCoroutine(DoFade(FadeUiData.canvasDelay, true, FadeUiData.canvasDelay * 2));
         }
 

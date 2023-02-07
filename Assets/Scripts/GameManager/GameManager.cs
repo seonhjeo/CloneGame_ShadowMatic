@@ -20,6 +20,8 @@ namespace GameManager
     
     public partial class GameManager // Properties and Methods that other classes can use
     {
+        public LoadLevelSo loadLevelData;
+        
         public GameState GameState { get; private set; } = GameState.Start;
 
         public void ToUIState(float delay) => _SetGameState(GameState.OnUI, delay);
@@ -48,7 +50,7 @@ namespace GameManager
     {
         private void Awake()
         {
-            _curObj = Instantiate(rotObjs[2], gameData.objectPos, Quaternion.identity);
+            _curObj = Instantiate(rotObjs[loadLevelData.levelToLoad], gameData.objectPos, Quaternion.identity);
             _curRot = _curObj.GetComponent<IRotate>();
             _clearTime = 0f;
         }

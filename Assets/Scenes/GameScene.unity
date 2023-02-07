@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a68f8f150a2fd4ebe897868c23948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadLevelData: {fileID: 11400000, guid: 2be0927abc465064abe8b4177d7838cb, type: 2}
   gameData: {fileID: 11400000, guid: ff5024abf8131b546a5b8a22c6511cf2, type: 2}
   rotObjs:
   - {fileID: 8505782357254297722, guid: d9b4e7380ce044406b8e6d097335ea7f, type: 3}

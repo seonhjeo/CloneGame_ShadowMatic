@@ -1,5 +1,3 @@
-
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +6,7 @@ using UIManager.Base_Script;
 
 namespace UIManager
 {
-    public partial class CanvasManager // Properties and Methods that other classes can use
+    public partial class FadePanelManager // Properties and Methods that other classes can use
     {
         [field:SerializeField]
         public FadeUiSo FadeUiData { get; private set; }
@@ -20,69 +18,26 @@ namespace UIManager
         public void SceneFadeIn() => _FadeCanvas(FadeUiData.sceneDelay, true);
         
         public void SceneFadeOut() => _FadeCanvas(FadeUiData.sceneDelay, false);
-
-        public void QuitGame() => _QuitGame();
-        
-        public void StartToMain() => _StartToMain();
-
-        public void MainToStart() => _MainToStart();
     }
     
-    public partial class CanvasManager // Properties and Methods that only this class use
+    public partial class FadePanelManager // Properties and Methods that only this class use
     {
         [SerializeField]
         private CanvasGroup canvasGroup;
 
-        [SerializeField] private GameObject startPanel;
-        [SerializeField] private GameObject mainPanel;
-
-        [SerializeField] private LoadLevelSo levelData;
-        
         private bool _fadeStatus = true;
     }
     
-    public partial class CanvasManager : MonoBehaviour
+    public partial class FadePanelManager : MonoBehaviour
     {
         private void Start()
         {
-            if (levelData.levelToLoad != -1)
-            {
-                startPanel.SetActive(false);
-                mainPanel.SetActive(true);
-            }
-            StartCoroutine(DoFade(FadeUiData.sceneDelay, true));
+            StartCoroutine(DoFade(FadeUiData.sceneDelay, false));
         }
     }
 
-    public partial class CanvasManager : IUIManager, IFade
+    public partial class FadePanelManager : IUIManager, IFade
     {
-
-        private void _QuitGame()
-        {
-            // TODO : change at build
-            UnityEditor.EditorApplication.isPlaying = false;
-            // Application.Quit();
-        }
-        
-        private void _StartToMain()
-        {
-            if (startPanel && mainPanel)
-            {
-                StartCoroutine(DoFade(FadeUiData.canvasDelay, false));
-                StartCoroutine(_SwitchPanel(startPanel, mainPanel));
-                StartCoroutine(DoFade(FadeUiData.canvasDelay, true, FadeUiData.canvasDelay * 2));
-            }
-        }
-
-        private void _MainToStart()
-        {
-            if (startPanel && mainPanel)
-            {
-                StartCoroutine(DoFade(FadeUiData.canvasDelay, false));
-                StartCoroutine(_SwitchPanel(mainPanel, startPanel));
-                StartCoroutine(DoFade(FadeUiData.canvasDelay, true, FadeUiData.canvasDelay * 2));
-            }
-        }
 
         private void _FadeCanvas(float time, bool isIn)
         {
@@ -144,4 +99,3 @@ namespace UIManager
         }
     }
 }
-

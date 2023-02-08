@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 using Data;
+using ScriptableObj;
 using UIManager.Base_Script;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,7 @@ namespace UIManager
     
     public partial class LevelButtonManager // Properties and Methods that only this class use
     {
-        
+        [SerializeField] private FadeUiSo fadeData;
     }
     
     public partial class LevelButtonManager : MonoBehaviour, IUIManager
@@ -39,7 +40,7 @@ namespace UIManager
 
         private IEnumerator _LoadGameScene()
         {
-            yield return null;
+            yield return new WaitForSeconds(fadeData.sceneDelay);
 
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("GameScene");
 

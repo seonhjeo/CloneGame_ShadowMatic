@@ -32,12 +32,15 @@ namespace GameManager
     {
         [SerializeField]
         private GameManagerSo gameData;
+
+        [SerializeField] private FadeUiSo fadeData;
         
         [SerializeField]
         private List<GameObject> rotObjs = new List<GameObject>();
         
         [SerializeField] private UnityEvent<float, float> setResult;
         [SerializeField] private UnityEvent<float> setProgress;
+        
 
         private GameObject _curObj;
         private IRotate _curRot;
@@ -64,7 +67,7 @@ namespace GameManager
             #endif
             
             _curRot.InitObj();
-            GameState = GameState.Play;
+            ToPlayState(fadeData.sceneDelay);
         }
         
         private void Update()

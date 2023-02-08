@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 using UIManager.Base_Script;
 using ScriptableObj;
+using UnityEngine.SceneManagement;
 
 namespace UIManager
 {
@@ -20,6 +21,8 @@ namespace UIManager
         public void SetResult(float rtime, float ltime) => _SetResult(rtime, ltime);
 
         public void SetProgressValue(float progress) => _SetProgressValue(progress);
+
+        public void LoadMenuScene() => _LoadMenuScene();
     }
     
     public partial class IndicatorManager // Properties and Methods that only this class use
@@ -47,6 +50,24 @@ namespace UIManager
         {
             text.text = Math.Round(rtime, 2).ToString(CultureInfo.CurrentCulture);
             StartCoroutine(_CorFadeTextIn(ltime));
+        }
+
+        private void _LoadMenuScene()
+        {
+            // TODO : load Game
+            StartCoroutine(_LoadMenuSceneCor());
+        }
+
+        private IEnumerator _LoadMenuSceneCor()
+        {
+            yield return new WaitForSeconds(UiData.canvasDelay * 2);
+
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("MenuScene");
+
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
         }
 
         private IEnumerator _CorFadeTextIn(float time)

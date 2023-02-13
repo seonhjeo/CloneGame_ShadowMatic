@@ -1,17 +1,18 @@
-using System.Collections;
+
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
-    public struct LevelData
+    [Serializable]
+    public class LevelData
     {
         public int LevelID;
         public string LevelName;
         public string LevelImagePath;
         public string LevelObjPath;
 
-        public void SetData()
+        public LevelData()
         {
             LevelID = 0;
             LevelName = "-";
@@ -19,12 +20,30 @@ namespace Data
             LevelObjPath = "-";
         }
         
-        public void SetData(LevelData data)
+        public LevelData(LevelData data)
         {
             LevelID = data.LevelID;
             LevelName = data.LevelName;
             LevelImagePath = data.LevelImagePath;
             LevelObjPath = data.LevelObjPath;
+        }
+    }
+    
+    public class LevelDatas
+    {
+        public List<LevelData> Datas = new List<LevelData>();
+
+        public LevelDatas()
+        {
+            LevelData temp = new LevelData();
+            Datas.Add(temp);
+            Datas.Add(temp);
+            Datas.Add(temp);
+        }
+
+        public LevelData[] ToArray()
+        {
+            return Datas.ToArray();
         }
     }
 }

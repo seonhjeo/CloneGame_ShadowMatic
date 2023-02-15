@@ -17,6 +17,8 @@ namespace UIManager
         public void FadeIn() => _FadeCanvas(FadeUiData.canvasDelay, true);
 
         public void FadeOut() => _FadeCanvas(FadeUiData.canvasDelay, false);
+        
+        
     }
 
     public partial class SettingManager // Properties and Methods that only this class use

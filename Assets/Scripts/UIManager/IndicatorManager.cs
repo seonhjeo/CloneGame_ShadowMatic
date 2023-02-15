@@ -48,7 +48,7 @@ namespace UIManager
         
         private void _SetResult(float rtime, float ltime)
         {
-            text.text = Math.Round(rtime, 2).ToString(CultureInfo.CurrentCulture);
+            text.text = Math.Round(rtime, 2).ToString(CultureInfo.InvariantCulture);
             StartCoroutine(_CorFadeTextIn(ltime));
         }
 

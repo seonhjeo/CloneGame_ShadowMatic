@@ -12,7 +12,6 @@ namespace UIManager
     public partial class LevelButtonManager // Properties and Methods that other classes can use
     {
         public LevelData Data;
-        public LoadLevelSo loadLevelData;
 
         public void InitData(LevelData data) => _InitData(data);
 
@@ -34,7 +33,7 @@ namespace UIManager
         private void _LoadGame()
         {
             // TODO : load Game
-            loadLevelData.levelToLoad = 0;
+            DataManager.Instance.curLevel = -1;
             StartCoroutine(_LoadGameScene());
         }
 

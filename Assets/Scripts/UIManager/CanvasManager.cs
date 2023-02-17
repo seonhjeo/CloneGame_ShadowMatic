@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using Data;
 using UnityEngine;
 
 using ScriptableObj;
@@ -36,8 +37,6 @@ namespace UIManager
         [SerializeField] private GameObject startPanel;
         [SerializeField] private GameObject mainPanel;
 
-        [SerializeField] private LoadLevelSo levelData;
-        
         private bool _fadeStatus = true;
     }
     
@@ -45,7 +44,7 @@ namespace UIManager
     {
         private void Start()
         {
-            if (levelData.levelToLoad != -1)
+            if (DataManager.Instance.curLevel != -1)
             {
                 startPanel.SetActive(false);
                 mainPanel.SetActive(true);

@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f384eb85a96db4197bc27bfdf35602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curLevel: -1
 --- !u!1001 &388738352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1322,7 +1323,6 @@ MonoBehaviour:
   canvasGroup: {fileID: 835729580}
   startPanel: {fileID: 2080363270}
   mainPanel: {fileID: 928890887}
-  levelData: {fileID: 11400000, guid: 2be0927abc465064abe8b4177d7838cb, type: 2}
 --- !u!1001 &893940620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3535,11 +3535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1489629929503438747, guid: 861b2afa948a321489568d45cf8e3ef1, type: 3}
       propertyPath: m_MaxValue
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1489629929503438747, guid: 861b2afa948a321489568d45cf8e3ef1, type: 3}
       propertyPath: m_WholeNumbers
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1489629929503438747, guid: 861b2afa948a321489568d45cf8e3ef1, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using Data;
 using ScriptableObj;
 
 namespace Rotate
@@ -69,7 +70,8 @@ namespace Rotate
 
         private void _RotateObj(float x, float y, float z)
         {
-            _myRigidBody.AddTorque(y, -x, -z);
+            float t = DataManager.Instance.PlayerData.MouseSensitivity;
+            _myRigidBody.AddTorque(y * t, -x * t, -z * t);
         }
     }
     

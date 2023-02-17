@@ -3,12 +3,18 @@ using System.Collections.Generic;
 
 namespace Data
 {
+    public class ProgressTimeData
+    {
+        public int LevelID;
+        public float ProgressTime;
+    }
+    
     [Serializable]
     public class PlayerData
     {
         // Game Data
         public int ProgressLevel;
-        public List<float> ProgressTime = new List<float>();
+        public List<ProgressTimeData> ProgressTime = new List<ProgressTimeData>();
 
         // Setting Data
         public float MouseSensitivity;

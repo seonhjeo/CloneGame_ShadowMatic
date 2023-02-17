@@ -10,6 +10,9 @@ namespace Data
         public LevelDatas LevelData { get; private set; }
 
         public int curLevel = -1;
+
+        public void SavePlayerData() => _SavePlayerData();
+        public void SaveLevelData() => _SaveLevelData();
     }
     
     public partial class DataManager
@@ -31,6 +34,22 @@ namespace Data
             
             PlayerData = _jsonConverter.LoadEncryptedJsonFile<PlayerData>(Application.dataPath, "DataFile/PlayerData");
             LevelData = _jsonConverter.LoadEncryptedJsonFile<LevelDatas>(Application.dataPath, "DataFile/LevelData");
+        }
+    }
+
+    public partial class DataManager
+    {
+        private void _SavePlayerData()
+        {
+            string s = _jsonConverter.ObjectToJson(PlayerData);
+            _jsonConverter.CreateOrSaveEncryptedJsonFile(Application.dataPath, "DataFile/PlayerData", s);
+            
+        }
+
+        private void _SaveLevelData()
+        {
+            string s = _jsonConverter.ObjectToJson(LevelData);
+            _jsonConverter.CreateOrSaveEncryptedJsonFile(Application.dataPath, "DataFile/LevelData", s);
         }
     }
 }

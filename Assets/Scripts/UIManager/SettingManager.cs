@@ -1,6 +1,6 @@
 
 using System.Collections;
-
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,8 +17,8 @@ namespace UIManager
         public void FadeIn() => _FadeCanvas(FadeUiData.canvasDelay, true);
 
         public void FadeOut() => _FadeCanvas(FadeUiData.canvasDelay, false);
-        
-        
+
+        public void SaveSetting() => _SaveSetting();
     }
 
     public partial class SettingManager // Properties and Methods that only this class use
@@ -27,7 +27,10 @@ namespace UIManager
 
         [SerializeField] private CanvasGroup canvasGroup;
 
-        private bool _fadeStatus = false;
+        [SerializeField] private FSPManager mouseSensitivity;
+        [SerializeField] private FSPManager bgmVolume;
+
+        private bool _fadeStatus;
 
         private Material _material;
         private int _alphaId;
@@ -37,13 +40,32 @@ namespace UIManager
     {
         private void Awake()
         {
+            _fadeStatus = false;
             _material = image.material;
             _alphaId = Shader.PropertyToID("_Size");
+        }
+
+        private void OnEnable()
+        {
+            _InitSetting();
         }
     }
 
     public partial class SettingManager : IUIManager, IBlur
     {
+        private void _InitSetting()
+        {
+            mouseSensitivity.SetValue(DataManager.Instance.PlayerData.MouseSensitivity);
+            bgmVolume.SetValue(DataManager.Instance.PlayerData.BGMVolume);
+        }
+        
+        private void _SaveSetting()
+        {
+            DataManager.Instance.PlayerData.MouseSensitivity = mouseSensitivity.GetValue();
+            DataManager.Instance.PlayerData.BGMVolume = bgmVolume.GetValue();
+            DataManager.Instance.SavePlayerData();
+        }
+        
         private void _FadeCanvas(float time, bool isIn)
         {
             if (isIn != _fadeStatus)

@@ -32,8 +32,8 @@ namespace UIManager
 
         private void _LoadGame()
         {
-            // TODO : load Game
-            DataManager.Instance.curLevel = -1;
+            // TODO : load Game by Data
+            DataManager.Instance.curLevel = Data.LevelID;
             StartCoroutine(_LoadGameScene());
         }
 

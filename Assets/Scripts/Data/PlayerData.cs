@@ -7,6 +7,18 @@ namespace Data
     {
         public int LevelID;
         public float ProgressTime;
+
+        public ProgressTimeData()
+        {
+            LevelID = 0;
+            ProgressTime = -1f;
+        }
+
+        public ProgressTimeData(int levelID, float progressTime)
+        {
+            LevelID = levelID;
+            ProgressTime = progressTime;
+        }
     }
     
     [Serializable]

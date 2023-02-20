@@ -9,6 +9,8 @@ namespace Data
         public PlayerData PlayerData { get; private set; }
         public LevelDatas LevelData { get; private set; }
 
+        // Level that player check in UI, not related to stored data
+        [HideInInspector]
         public int curLevel = -1;
 
         public void SavePlayerData() => _SavePlayerData();
@@ -17,7 +19,7 @@ namespace Data
     
     public partial class DataManager
     {
-        private JsonConverter _jsonConverter = new JsonConverter();
+        private readonly JsonConverter _jsonConverter = new JsonConverter();
     }
     
     public partial class DataManager : MonoBehaviour
@@ -31,14 +33,19 @@ namespace Data
             }
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
-            PlayerData = _jsonConverter.LoadEncryptedJsonFile<PlayerData>(Application.dataPath, "DataFile/PlayerData");
-            LevelData = _jsonConverter.LoadEncryptedJsonFile<LevelDatas>(Application.dataPath, "DataFile/LevelData");
+
+            _LoadData();
         }
     }
 
     public partial class DataManager
     {
+        private void _LoadData()
+        {
+            PlayerData = _jsonConverter.LoadEncryptedJsonFile<PlayerData>(Application.dataPath, "DataFile/PlayerData");
+            LevelData = _jsonConverter.LoadEncryptedJsonFile<LevelDatas>(Application.dataPath, "DataFile/LevelData");
+        }
+        
         private void _SavePlayerData()
         {
             string s = _jsonConverter.ObjectToJson(PlayerData);

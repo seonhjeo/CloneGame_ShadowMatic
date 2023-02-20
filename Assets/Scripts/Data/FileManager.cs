@@ -1,11 +1,12 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace Data
 {
     /// <summary>
-    /// This class is for modifying data by developer
+    /// This class is for intialize and modify json file data by developer
     /// Create empty Class, add this script, edit this script and push play button to save data;
     /// </summary>
     public partial class FileManager
@@ -71,8 +72,12 @@ namespace Data
             PlayerData pData = new PlayerData();
 
             pData.ProgressLevel = 0;
-            pData.ProgressTime = new List<ProgressTimeData>();
-            pData.ProgressTime.Add(new ProgressTimeData());
+            pData.ProgressTime = new List<float>();
+            
+            for (int i = 0; i < 3; i++)
+            {
+                pData.ProgressTime.Add(0f);
+            }
 
             return pData;
         }

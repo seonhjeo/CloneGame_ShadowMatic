@@ -114,9 +114,24 @@ namespace GameManager
         {
             float res = _curRot.ReturnProgress();
             setProgress.Invoke(res);
-            if (res >= gameData.Offset)
+            
+            if (res >= gameData.Offset && GameState != GameState.Clear)
             {
                 GameState = GameState.Clear;
+
+                PlayerData pData = DataManager.Instance.PlayerData;
+                
+                if (pData.ProgressTime[DataManager.Instance.curLevel] > _clearTime || pData.ProgressTime[DataManager.Instance.curLevel] == 0f)
+                {
+                    pData.ProgressTime[DataManager.Instance.curLevel] = _clearTime;
+                }
+                
+                if (DataManager.Instance.curLevel == pData.ProgressLevel)
+                {
+                    pData.ProgressLevel += 1;
+                }
+                DataManager.Instance.SavePlayerData();
+                
                 setResult.Invoke(_clearTime, gameData.AnswerLerpTime);
                 setProgress.Invoke(1f);
                 _curRot.RotateObjToAns(gameData.AnswerLerpTime);

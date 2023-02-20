@@ -18,6 +18,7 @@ namespace UIManager
     {
         private void OnEnable()
         {
+            Debug.Log(DataManager.Instance.PlayerData.ProgressLevel);
             if (scrollViewContent.transform.childCount != 0)
             {
                 foreach (Transform child in scrollViewContent.transform)
@@ -36,7 +37,7 @@ namespace UIManager
 
                 if (i < pData.ProgressLevel)
                 {
-                    manager.InitData(lData.Datas[i], pData.ProgressTime[i].ProgressTime);
+                    manager.InitData(lData.Datas[i], pData.ProgressTime[i]);
                 }
                 else if (i == pData.ProgressLevel)
                 {

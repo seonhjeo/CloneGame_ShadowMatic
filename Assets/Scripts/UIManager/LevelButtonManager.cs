@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Globalization;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace UIManager
         {
             Data = data;
             nameText.text = Data.levelName;
-            timeText.text = time.ToString(CultureInfo.InvariantCulture);
+            timeText.text = Math.Round(time, 2).ToString(CultureInfo.InvariantCulture);
             Sprite s = Resources.Load<Sprite>(Data.levelImagePath);
             image.sprite = s;
         }

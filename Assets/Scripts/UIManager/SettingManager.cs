@@ -55,8 +55,10 @@ namespace UIManager
     {
         private void _InitSetting()
         {
-            mouseSensitivity.SetValue(DataManager.Instance.PlayerData.MouseSensitivity);
-            bgmVolume.SetValue(DataManager.Instance.PlayerData.BGMVolume);
+            if (mouseSensitivity)
+                mouseSensitivity.SetValue(DataManager.Instance.PlayerData.MouseSensitivity);
+            if (bgmVolume)
+                bgmVolume.SetValue(DataManager.Instance.PlayerData.BGMVolume);
         }
         
         private void _SaveSetting()

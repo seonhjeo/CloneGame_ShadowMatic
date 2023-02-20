@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -25,7 +26,14 @@ namespace Data
         // save JSON files written on string
         public void CreateOrSaveJsonFile(string createPath, string fileName, string jsonData)
         {
-            FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", createPath, fileName), FileMode.OpenOrCreate);
+            string file = string.Format("{0}/{1}.json", createPath, fileName);
+            
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+            
+            FileStream fileStream = new FileStream(file, FileMode.Create, FileAccess.Write);
             byte[] data = Encoding.UTF8.GetBytes(jsonData);
             fileStream.Write(data, 0, data.Length);
             fileStream.Close();
@@ -34,7 +42,7 @@ namespace Data
         // load JSON files to generic types
         public T LoadJsonFile<T>(string loadPath, string fileName)
         {
-            FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open);
+            FileStream fileStream = new FileStream(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open, FileAccess.Read);
             byte[] data = new byte[fileStream.Length];
             fileStream.Read(data, 0, data.Length);
             fileStream.Close();
@@ -46,6 +54,7 @@ namespace Data
         {
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);
             string code = System.Convert.ToBase64String(bytes);
+            File.WriteAllText(string.Format("{0}/{1}.json", createPath, fileName), String.Empty);
             File.WriteAllText(string.Format("{0}/{1}.json", createPath, fileName), code);
         }
 

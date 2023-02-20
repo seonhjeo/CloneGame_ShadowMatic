@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Data;
+
 using UnityEngine;
 using UnityEngine.Events;
 
+using Data;
 using Rotate;
 using ScriptableObj;
+//using Input = UnityEngine.Input;
 
 namespace GameManager
 {
@@ -33,10 +34,7 @@ namespace GameManager
         private GameManagerSo gameData;
 
         [SerializeField] private FadeUiSo fadeData;
-        
-        [SerializeField]
-        private List<GameObject> rotObjs = new List<GameObject>();
-        
+
         [SerializeField] private UnityEvent<float, float> setResult;
         [SerializeField] private UnityEvent<float> setProgress;
         
@@ -54,7 +52,8 @@ namespace GameManager
         {
             try
             {
-                _curObj = Instantiate(rotObjs[DataManager.Instance.curLevel], gameData.objectPos, Quaternion.identity);
+                GameObject t = Resources.Load<GameObject>(DataManager.Instance.LevelData.Datas[DataManager.Instance.curLevel].levelObjPath);
+                _curObj = Instantiate(t, gameData.objectPos, Quaternion.identity);
                 _curRot = _curObj.GetComponent<IRotate>();
             }
             catch (ArgumentOutOfRangeException e)
@@ -115,9 +114,24 @@ namespace GameManager
         {
             float res = _curRot.ReturnProgress();
             setProgress.Invoke(res);
-            if (res >= gameData.Offset)
+            
+            if (res >= gameData.Offset && GameState != GameState.Clear)
             {
                 GameState = GameState.Clear;
+
+                PlayerData pData = DataManager.Instance.PlayerData;
+                
+                if (pData.ProgressTime[DataManager.Instance.curLevel] > _clearTime || pData.ProgressTime[DataManager.Instance.curLevel] == 0f)
+                {
+                    pData.ProgressTime[DataManager.Instance.curLevel] = _clearTime;
+                }
+                
+                if (DataManager.Instance.curLevel == pData.ProgressLevel)
+                {
+                    pData.ProgressLevel += 1;
+                }
+                DataManager.Instance.SavePlayerData();
+                
                 setResult.Invoke(_clearTime, gameData.AnswerLerpTime);
                 setProgress.Invoke(1f);
                 _curRot.RotateObjToAns(gameData.AnswerLerpTime);

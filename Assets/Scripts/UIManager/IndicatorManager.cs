@@ -54,7 +54,6 @@ namespace UIManager
 
         private void _LoadMenuScene()
         {
-            // TODO : load Game
             StartCoroutine(_LoadMenuSceneCor());
         }
 

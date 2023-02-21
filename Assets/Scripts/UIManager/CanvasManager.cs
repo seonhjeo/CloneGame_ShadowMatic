@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections;
 using Data;
 using UnityEngine;
@@ -65,8 +64,8 @@ namespace UIManager
         private void _QuitGame()
         {
             // TODO : change at build
-            UnityEditor.EditorApplication.isPlaying = false;
-            // Application.Quit();
+            //UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
         }
 
         private void _ChangeTestMode()

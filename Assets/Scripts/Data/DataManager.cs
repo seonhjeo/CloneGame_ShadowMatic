@@ -10,8 +10,9 @@ namespace Data
         public LevelDatas LevelData { get; private set; }
 
         // Level that player check in UI, not related to stored data
-        [HideInInspector]
-        public int curLevel = -1;
+        [HideInInspector] public int curLevel = -1;
+
+        [HideInInspector] public bool isTest = false;
 
         public void SavePlayerData() => _SavePlayerData();
         public void SaveLevelData() => _SaveLevelData();

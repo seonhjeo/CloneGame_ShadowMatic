@@ -6,6 +6,7 @@ using UnityEngine;
 
 using ScriptableObj;
 using UIManager.Base_Script;
+using UnityEngine.UI;
 
 namespace UIManager
 {
@@ -23,6 +24,8 @@ namespace UIManager
         public void SceneFadeOut() => _FadeCanvas(FadeUiData.sceneDelay, false);
 
         public void QuitGame() => _QuitGame();
+
+        public void ChangeTestMode() => _ChangeTestMode();
         
         public void StartToMain() => _StartToMain();
 
@@ -36,6 +39,7 @@ namespace UIManager
 
         [SerializeField] private GameObject startPanel;
         [SerializeField] private GameObject mainPanel;
+        [SerializeField] private Toggle testModeToggle;
 
         private bool _fadeStatus = true;
     }
@@ -44,6 +48,8 @@ namespace UIManager
     {
         private void Start()
         {
+            testModeToggle.isOn = DataManager.Instance.isTest;
+            
             if (DataManager.Instance.curLevel != -1)
             {
                 startPanel.SetActive(false);
@@ -61,6 +67,11 @@ namespace UIManager
             // TODO : change at build
             UnityEditor.EditorApplication.isPlaying = false;
             // Application.Quit();
+        }
+
+        private void _ChangeTestMode()
+        {
+            DataManager.Instance.isTest = testModeToggle.isOn;
         }
         
         private void _StartToMain()

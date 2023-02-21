@@ -120,17 +120,20 @@ namespace GameManager
                 GameState = GameState.Clear;
 
                 PlayerData pData = DataManager.Instance.PlayerData;
-                
-                if (pData.ProgressTime[DataManager.Instance.curLevel] > _clearTime || pData.ProgressTime[DataManager.Instance.curLevel] == 0f)
+
+                if (!DataManager.Instance.isTest)
                 {
-                    pData.ProgressTime[DataManager.Instance.curLevel] = _clearTime;
-                }
+                    if (pData.ProgressTime[DataManager.Instance.curLevel] > _clearTime || pData.ProgressTime[DataManager.Instance.curLevel] == 0f)
+                    {
+                        pData.ProgressTime[DataManager.Instance.curLevel] = _clearTime;
+                    }
                 
-                if (DataManager.Instance.curLevel == pData.ProgressLevel)
-                {
-                    pData.ProgressLevel += 1;
+                    if (DataManager.Instance.curLevel == pData.ProgressLevel)
+                    {
+                        pData.ProgressLevel += 1;
+                    }
+                    DataManager.Instance.SavePlayerData();
                 }
-                DataManager.Instance.SavePlayerData();
                 
                 setResult.Invoke(_clearTime, gameData.AnswerLerpTime);
                 setProgress.Invoke(1f);

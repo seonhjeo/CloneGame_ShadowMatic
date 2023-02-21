@@ -46,7 +46,6 @@ namespace UIManager
 
         private void _LoadGame()
         {
-            // TODO : load Game by Data
             if (Data.levelID >= 0)
             {
                 _manager = GameObject.Find("Canvas").GetComponent<CanvasManager>();
